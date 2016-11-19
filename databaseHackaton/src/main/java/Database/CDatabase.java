@@ -16,11 +16,11 @@ public class CDatabase {
 
     private ResultSet resultSet;
 
-    private String url;
+    private String url = "jdbc:mysql:/10.55.166.246/base";
 
-    private String login;
+    private String login = "root";
 
-    private String password;
+    private String password = "root";
 
     private Set<Integer> forbiddenTypes;
 
