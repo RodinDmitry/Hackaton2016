@@ -1,6 +1,5 @@
 package explicitteam.miptevents;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,17 +12,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ListView;
-
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import explicitteam.miptevents.Database.CDatabase;
-import explicitteam.miptevents.Database.DatabasePackage;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -35,9 +23,14 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        ListView listView = (ListView) findViewById(R.id.content_main);
-        EventListAdapter eventListAdapter = new EventListAdapter(testInit(), this);
-        listView.setAdapter(eventListAdapter);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -88,16 +81,13 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            Intent switcact = new Intent(this, ScrollingActivity.class);
-            startActivity(switcact);
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
-            Intent switcact = new Intent(this, SettingsActivity.class);
-            startActivity(switcact);
+
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
@@ -107,32 +97,5 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    private List<DatabasePackage> testInit() {
-        List<DatabasePackage> list = new ArrayList<>();
-
-        list.add(new DatabasePackage(1, "Лыжные гонки",
-                "В эти выходные вам представляется возможность выяснить, кто тут самый быстрый!",
-                "Физтех роща", new Date(System.currentTimeMillis()), 1, 1, 1, "raxe"));
-        list.add(new DatabasePackage(2, "Лыжные гонки",
-                "В эти выходные вам представляется возможность выяснить, кто тут самый быстрый!",
-                "Физтех роща", new Date(System.currentTimeMillis()), 1, 1, 1, "raxe"));
-        list.add(new DatabasePackage(3, "Лыжные гонки",
-                "В эти выходные вам представляется возможность выяснить, кто тут самый быстрый!",
-                "Физтех роща", new Date(System.currentTimeMillis()), 1, 1, 1, "raxe"));
-        return list;
-    }
-
-    private List<DatabasePackage> dbinit() {
-        CDatabase dbase = new CDatabase(new HashSet<Integer>(), new HashSet<Integer>(),
-                new HashSet<Integer>());
-        try {
-            dbase.connect();
-            return dbase.getQueryResult();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return new ArrayList<DatabasePackage>();
     }
 }
