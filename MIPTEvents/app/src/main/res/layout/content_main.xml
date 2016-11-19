@@ -13,4 +13,10 @@
     tools:context="explicitteam.miptevents.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:id="@+id/list_view"/>
 </RelativeLayout>

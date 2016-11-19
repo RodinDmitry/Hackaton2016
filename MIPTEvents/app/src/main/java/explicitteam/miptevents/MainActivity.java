@@ -12,6 +12,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import explicitteam.miptevents.Database.DatabasePackage;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -23,23 +30,17 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+        drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        ListView listView = (ListView) findViewById(R.id.list_view);
+        EventAdapter adapter = new EventAdapter(this, initListTest());
+        listView.setAdapter(adapter);
     }
 
     @Override
@@ -97,5 +98,22 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private List<DatabasePackage> initListTest() {
+        List<DatabasePackage> list = new ArrayList<>();
+
+        list.add(new DatabasePackage(1, "Хакатон на физтехе", "Самый луучший хакатон, на 24 часа." +
+                " далее следует длиииииииииииииииииииииииииииииииииииииииииииииииииииииии" +
+                "ииииииииииииииииииииииииииииииииииииииииииииииииииинное описание",
+                "БФК 112", new Date(System.currentTimeMillis()), 1, 1, 1, "лул"));
+
+        list.add(new DatabasePackage(2, "Хакатон на физтехе", "Самый луучший хакатон, на 24 часа",
+                "БФК 112", new Date(System.currentTimeMillis()), 1, 1, 1, "лул"));
+
+        list.add(new DatabasePackage(3, "Хакатон на физтехе", "Самый луучший хакатон, на 24 часа",
+                "БФК 112", new Date(System.currentTimeMillis()), 1, 1, 1, "лул"));
+
+        return list;
     }
 }
