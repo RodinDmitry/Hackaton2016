@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="170dp"
+    android:weightSum="1">
+
+    <TextView
+        android:text="Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView2"
+        android:textAppearance="@android:style/TextAppearance.Material.Display2"
+        android:textAllCaps="true" />
+
+    <TextView
+        android:text="Date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView3"
+        android:textAppearance="@android:style/TextAppearance.Material.DatePicker.DateLabel"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="14sp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:textStyle="normal|italic" />
+
+    <TextView
+        android:text="Description"
+        android:layout_width="match_parent"
+        android:layout_height="67dp"
+        android:id="@+id/textView4"
+        android:textAppearance="@android:style/TextAppearance.Material.Body1"
+        android:textSize="24sp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp" />
+
+    <TextView
+        android:text="tags"
+        android:layout_width="374dp"
+        android:layout_height="match_parent"
+        android:id="@+id/textView5"
+        android:textSize="18sp"
+        android:textAlignment="textStart"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:textAllCaps="false" />
+
+</LinearLayout>
