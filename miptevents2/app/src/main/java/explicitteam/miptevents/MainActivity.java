@@ -1,5 +1,6 @@
 package explicitteam.miptevents;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -81,13 +82,16 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
+            Intent switcact = new Intent(this, ScrollingActivity.class);
+            startActivity(switcact);
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
-
+            Intent switcact = new Intent(this, SettingsActivity.class);
+            startActivity(switcact);
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
