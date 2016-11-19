@@ -99,4 +99,28 @@ public class CDatabase {
         return  true;
     }
 
+    public void addNewFilterType(int filter) {
+        forbiddenTypes.add(filter);
+    }
+
+    public void addNewFilterTheme(int filter) {
+        forbiddenThemes.add(filter);
+    }
+
+    public void addNewFilterDepartment(int filter) {
+        forbiddenDepartments.add(filter);
+    }
+
+    public void removeFilterType(int filter) {
+        forbiddenTypes.remove(filter);
+    }
+
+    public void removeFilterTheme(int filter) {
+        forbiddenThemes.remove(filter);
+    }
+
+    public void removeFilterDepartement(int filter) {
+        forbiddenDepartments.remove(filter);
+    }
+
 }
