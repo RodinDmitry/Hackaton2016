@@ -1,4 +1,4 @@
-package Database;
+package explicitteam.miptevents.Database;
 
 import java.sql.*;
 import java.util.ArrayList;

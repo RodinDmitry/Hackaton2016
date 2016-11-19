@@ -8,15 +8,17 @@
         android:text="Title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textView2"
-        android:textAppearance="@android:style/TextAppearance.Material.Display2"
-        android:textAllCaps="true" />
+        android:id="@+id/title"
+        android:textAppearance="@android:style/TextAppearance.Holo.Light.Large"
+        android:textAllCaps="true"
+        android:textSize="36sp"
+        android:textColor="?android:attr/textColorHint" />
 
     <TextView
         android:text="Date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textView3"
+        android:id="@+id/date"
         android:textAppearance="@android:style/TextAppearance.Material.DatePicker.DateLabel"
         android:textColor="@android:color/darker_gray"
         android:textSize="14sp"
@@ -28,17 +30,17 @@
         android:text="Description"
         android:layout_width="match_parent"
         android:layout_height="67dp"
-        android:id="@+id/textView4"
-        android:textAppearance="@android:style/TextAppearance.Material.Body1"
-        android:textSize="24sp"
+        android:id="@+id/description"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         android:paddingLeft="10dp"
-        android:paddingRight="10dp" />
+        android:paddingRight="10dp"
+        android:textSize="18sp" />
 
     <TextView
         android:text="tags"
         android:layout_width="374dp"
         android:layout_height="match_parent"
-        android:id="@+id/textView5"
+        android:id="@+id/tags"
         android:textSize="18sp"
         android:textAlignment="textStart"
         android:paddingRight="10dp"

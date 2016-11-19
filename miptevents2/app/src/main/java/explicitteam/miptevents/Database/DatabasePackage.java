@@ -1,4 +1,4 @@
-package Database;
+package explicitteam.miptevents.Database;
 
 import java.util.Date;
 
