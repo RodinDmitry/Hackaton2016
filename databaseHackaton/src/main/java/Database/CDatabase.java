@@ -28,6 +28,13 @@ public class CDatabase {
 
     private Set<Integer> forbiddenDepartments;
 
+
+    public CDatabase(Set<Integer> forbiddenTypes,Set<Integer> forbiddenThemes,Set<Integer> forbiddenDepartments) {
+        this.forbiddenDepartments = forbiddenDepartments;
+        this.forbiddenThemes = forbiddenThemes;
+        this.forbiddenTypes = forbiddenTypes;
+    }
+
     public void connect() throws SQLException {
         connection = null;
         connection = DriverManager.getConnection(url,login,password);
