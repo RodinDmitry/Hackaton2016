@@ -10,7 +10,7 @@
     <TextView
         android:text="TextView"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="30dp"
         android:id="@+id/title"
         android:layout_weight="0.13"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
@@ -30,7 +30,7 @@
     <TextView
         android:text="TextView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="106dp"
         android:id="@+id/description"
         android:layout_weight="0.52"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"

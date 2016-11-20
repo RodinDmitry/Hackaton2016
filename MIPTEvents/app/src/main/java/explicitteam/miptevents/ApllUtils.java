@@ -10,12 +10,23 @@ import explicitteam.miptevents.Database.DatabasePackage;
  */
 
 public class ApllUtils {
-    public static String writeDate(Date date) {
-        SimpleDateFormat format = new SimpleDateFormat("d MMM h:mm");
-        return format.format(date);
+    public static String writeDate(Date date, Date time) {
+        SimpleDateFormat format = new SimpleDateFormat("d MMM");
+        String result = format.format(date);
+        format = new SimpleDateFormat("h mm");
+        result += ' ' + format.format(time);
+        return result;
     }
 
     public static String writeTags(DatabasePackage item) {
-        return "Event";
+        StringBuilder str = new StringBuilder();
+        for (String tag: item.getTags()) {
+            str.append(tag).append(' ');
+        }
+        return str.toString();
+    }
+
+    public static String getLoginString() {
+        return "VasyaPuk";
     }
 }

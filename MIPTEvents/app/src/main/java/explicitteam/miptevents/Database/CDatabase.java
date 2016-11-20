@@ -221,10 +221,14 @@ public class CDatabase implements Closeable{
                     "(SELECT term_taxonomy_id FROM wp_term_relationships WHERE object_id = " + id + ");";
 
             resultSet = statement.executeQuery(query);
-            HashSet<String> result = new HashSet<String>();
+            System.out.println(query);
+            HashSet<String> result = new HashSet<>();
+            System.out.println("gettags");
             while (resultSet.next()) {
                 int tagId = resultSet.getInt("term_id");
                 String tagName = resultSet.getString("name");
+                System.out.println(tagId);
+                System.out.println(tagName);
                 if (!checkBanned(tagId)) {
                     return null;
                 }

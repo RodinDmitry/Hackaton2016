@@ -66,15 +66,18 @@ public class MainActivity extends AppCompatActivity
         listView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getApplicationContext(), ScrollingActivity.class);
-                intent.putExtra("position", position);
-                DatabasePackage item = (DatabasePackage)parent.getItemAtPosition(position);
-                intent.putExtra("item", item);
-                System.out.println("thowing item" + (parent.getItemAtPosition(position) != null));
-                startActivity(intent);
+                maxonClickListener(parent,view, position, id);
             }
         });
         listView.setAdapter(adapter);
+    }
+
+    public void maxonClickListener(AdapterView<?> parent, View view, int position, long id) {
+        Intent intent = new Intent(getApplicationContext(), ScrollingActivity.class);
+        intent.putExtra("position", position);
+        DatabasePackage item = (DatabasePackage)parent.getItemAtPosition(position);
+        intent.putExtra("item", item);
+        startActivity(intent);
     }
 
     @Override
@@ -100,6 +103,29 @@ public class MainActivity extends AppCompatActivity
             if (favs != null) {
                 if (favs) {
 
+                } else {
+                    AsyncTask<Object, Object, List<DatabasePackage>> task = new AsyncTask<Object, Object, List<DatabasePackage>>(){
+                        @Override
+                        protected List<DatabasePackage> doInBackground(Object... params) {
+                            return initListTest();
+                        }
+                    }.execute(1);
+                    ListView listView = (ListView) findViewById(R.id.list_view);
+                    try {
+                        itemList = task.get();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    }
+                    EventAdapter adapter = new EventAdapter(this, itemList);
+                    listView.setOnItemClickListener(new OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            maxonClickListener(parent,view, position, id);
+                        }
+                    });
+                    listView.setAdapter(adapter);
                 }
             }
         }
@@ -172,20 +198,24 @@ public class MainActivity extends AppCompatActivity
             }
         }
         return new ArrayList<>();
-
-            /*list.add(new DatabasePackage(1, "Хакатон на физтехе", "Самый луучший хакатон, на 24 часа." +
-                " далее следует длиииииииииииииииииииииииииииииииииииииииииииииииииииииии" +
-                "ииииииииииииииииииииииииииииииииииииииииииииииииииинное описание",
-                "БФК 112", new Date(System.currentTimeMillis()), 1, 1, 1, "лул"));
-
-        list.add(new DatabasePackage(2, "Хакатон на физтехе", "Самый луучший хакатон, на 24 часа",
-                "БФК 112", new Date(System.currentTimeMillis()), 1, 1, 1, "лул"));
-
-        list.add(new DatabasePackage(3, "Хакатон на физтехе", "Самый луучший хакатон, на 24 часа",
-                "БФК 112", new Date(System.currentTimeMillis()), 1, 1, 1, "лул"));*/
-
     }
 
+    private List<DatabasePackage> getFavourites() {
+        List<DatabasePackage> list ;
+
+        try (CDatabase dbase = new CDatabase("VasyaPuk")) {
+            if (dbase != null) {
+
+                list = dbase.getList();
+                if (list != null) {
+                    return list;
+                } else {
+                    return new ArrayList<>();
+                }
+            }
+        }
+        return new ArrayList<>();
+    }
     private void initTags() {
         tags = new ArrayList<>();
     }

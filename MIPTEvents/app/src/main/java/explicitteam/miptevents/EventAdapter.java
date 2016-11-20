@@ -58,7 +58,7 @@ public class EventAdapter extends BaseAdapter {
         TextView textView = (TextView) view.findViewById(R.id.title);
         textView.setText(item.getEventName());
         textView = (TextView) view.findViewById(R.id.date);
-        textView.setText(writeDate(item.getEventStartDate()));
+        textView.setText(writeDate(item.getEventStartDate(), item.getEventStartTime()));
         textView = (TextView) view.findViewById(R.id.description);
         textView.setText(item.getEventContent());
         textView = (TextView) view.findViewById(R.id.tags);
