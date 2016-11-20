@@ -25,6 +25,8 @@ import explicitteam.miptevents.Database.DatabasePackage;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    List<Integer> tags;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,6 +84,8 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
             return true;
         }
 
@@ -101,7 +105,8 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
-
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
@@ -128,5 +133,9 @@ public class MainActivity extends AppCompatActivity
                 "БФК 112", new Date(System.currentTimeMillis()), 1, 1, 1, "лул"));
 
         return list;
+    }
+
+    private void initTags() {
+        tags = new ArrayList<Integer>();
     }
 }

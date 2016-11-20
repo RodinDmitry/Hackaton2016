@@ -43,6 +43,6 @@ public class ScrollingActivity extends AppCompatActivity {
     }
 
     public void handlerOnClick(View view) {
-        
+
     }
 }
