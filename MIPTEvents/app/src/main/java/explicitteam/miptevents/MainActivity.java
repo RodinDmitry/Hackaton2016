@@ -160,7 +160,7 @@ public class MainActivity extends AppCompatActivity
     private List<DatabasePackage> initListTest() {
         List<DatabasePackage> list ;
 
-        try (CDatabase dbase = new CDatabase("VasyaPukin")) {
+        try (CDatabase dbase = new CDatabase("VasyaPuk")) {
             if (dbase != null) {
 
                 list = dbase.getList();

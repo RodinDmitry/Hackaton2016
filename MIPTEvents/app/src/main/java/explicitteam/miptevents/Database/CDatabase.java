@@ -39,8 +39,9 @@ public class CDatabase implements Closeable{
             if (resultSet.next()) {
                 userID = resultSet.getInt("ID");
             }
-            if(userID == -1) {
-                addNewUser(user);
+           if(userID == -1) {
+               resultSet.close();
+               addNewUser(user);
             }
             initBannedSet();
         } catch (Exception e) {
@@ -49,16 +50,43 @@ public class CDatabase implements Closeable{
 
     }
 
-    private void addNewUser(String user) throws SQLException {
-        String query = "INSERT INTO wp_users (user_login,user_pass,user_nicename,user_email,user_url,user_activation_key,user_status,display_name) " +
-                "VALUES (" +
-                "'" + user + "','" + user + "','" + user + "',' no ',' no ',' no ',0,' " + user +  "');";
-        resultSet = statement.executeQuery(query);
-        query = "SELECT ID FROM wp_users WHERE user_login =" +
-                " '" + user + "';";
-        resultSet = statement.executeQuery(query);
-        if (resultSet.next()) {
-            userID = resultSet.getInt("ID");
+    public int getUserID() {
+        return userID;
+    }
+
+    private void addNewUser(String user)  {
+        try {
+            String query = "INSERT INTO wp_users (user_login,user_pass,user_nicename,user_email,user_url,user_activation_key,user_status,display_name) " +
+                    "VALUES (" +
+                    "'" + user + "','" + user + "','" + user + "',' no ',' no ',' no ',0,' " + user + "');";
+            resultSet = statement.executeQuery(query);
+            //resultSet.next();
+            query = "SELECT ID FROM wp_users WHERE user_login =" +
+                    "'" + user + "';";
+            resultSet = statement.executeQuery(query);
+            if (resultSet.next()) {
+                userID = resultSet.getInt("ID");
+            }
+        } catch (Exception e) {
+
+        }
+    }
+
+    public ProfilePackage getProfile() {
+        if(userID == -1) {
+            return new ProfilePackage(false);
+        }
+        String query = "SELECT user_nicename,user_email FROM wp_users WHERE ID = " + userID + ";";
+
+        try {
+            resultSet = statement.executeQuery(query);
+
+            String nicename = resultSet.getString("user_nicename");
+
+            String email = resultSet.getString("user_email");
+            return new ProfilePackage(nicename,email);
+        } catch (Exception e) {
+            return null;
         }
     }
 
@@ -158,7 +186,7 @@ public class CDatabase implements Closeable{
 
 
     private ArrayList<DatabasePackage> getTempList() throws SQLException {
-        String query = "SELECT * FROM wp_em_events;";
+        String query = "SELECT * FROM wp_em_events WHERE event_start_date >= CURDATE() ORDER BY event_start_date;";
         resultSet = statement.executeQuery(query);
         ArrayList<DatabasePackage> result = new ArrayList<DatabasePackage>();
         DatabasePackage pack = getNext();
@@ -171,6 +199,7 @@ public class CDatabase implements Closeable{
 
     public ArrayList<DatabasePackage> getList() {
         try {
+            System.out.println(userID);
             ArrayList<DatabasePackage> tempResult = getTempList();
             ArrayList<DatabasePackage> result = new ArrayList<DatabasePackage>();
             for (DatabasePackage item : tempResult) {

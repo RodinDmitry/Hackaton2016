@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="150dp"
+    android:layout_height="170dp"
     android:weightSum="1"
     android:clickable="false"
     android:contextClickable="false"
@@ -10,7 +10,7 @@
     <TextView
         android:text="TextView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:id="@+id/title"
         android:layout_weight="0.13"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
@@ -30,7 +30,7 @@
     <TextView
         android:text="TextView"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:id="@+id/description"
         android:layout_weight="0.52"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
