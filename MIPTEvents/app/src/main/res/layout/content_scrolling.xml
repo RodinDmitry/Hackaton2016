@@ -11,31 +11,52 @@
 
 
     <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+        <Button
+            android:text="записаться"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/title"
-            android:text=""/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_margin"
-            android:id="@+id/date"
-            android:text="@string/large_text" />
+            android:id="@+id/subscribe"
+            android:background="@color/colorPrimary" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:text="DATE"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/date"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textStyle="normal|italic"
+            android:textSize="18sp" />
+
+        <TextView
+            android:text="TAGS"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/tags"
-            android:text=""/>
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textSize="18sp" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:text="PLACE"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/place"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textStyle="normal|italic"
+            android:textSize="18sp" />
+
+        <TextView
+            android:text="TEXT"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/main_text"
-            android:text=""/>
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textSize="14sp" />
+
     </LinearLayout>
+
 
 </android.support.v4.widget.NestedScrollView>

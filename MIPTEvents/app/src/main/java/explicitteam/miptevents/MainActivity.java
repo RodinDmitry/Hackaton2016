@@ -2,6 +2,7 @@ package explicitteam.miptevents;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcel;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -46,7 +47,9 @@ public class MainActivity extends AppCompatActivity
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getApplicationContext(), ScrollingActivity.class);
                 intent.putExtra("position", position);
-                intent.putExtra("item", parent.getItemIdAtPosition(position));
+                DatabasePackage item = (DatabasePackage)parent.getItemAtPosition(position);
+                intent.putExtra("item", item);
+                System.out.println("thowing item" + (parent.getItemAtPosition(position) != null));
                 startActivity(intent);
             }
         });
