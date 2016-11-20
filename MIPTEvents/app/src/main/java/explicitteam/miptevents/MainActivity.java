@@ -20,10 +20,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import explicitteam.miptevents.Database.CDatabase;
 import explicitteam.miptevents.Database.DatabasePackage;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    List<Integer> tags;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +85,8 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
             return true;
         }
 
@@ -94,17 +99,14 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_profile) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_favs) {
 
         } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_filters) {
 
         }
 
@@ -116,7 +118,8 @@ public class MainActivity extends AppCompatActivity
     private List<DatabasePackage> initListTest() {
         List<DatabasePackage> list = new ArrayList<>();
 
-        list.add(new DatabasePackage(1, "Хакатон на физтехе", "Самый луучший хакатон, на 24 часа." +
+        CDatabase dbase = new CDatabase( );
+        /*list.add(new DatabasePackage(1, "Хакатон на физтехе", "Самый луучший хакатон, на 24 часа." +
                 " далее следует длиииииииииииииииииииииииииииииииииииииииииииииииииииииии" +
                 "ииииииииииииииииииииииииииииииииииииииииииииииииииинное описание",
                 "БФК 112", new Date(System.currentTimeMillis()), 1, 1, 1, "лул"));
@@ -125,8 +128,12 @@ public class MainActivity extends AppCompatActivity
                 "БФК 112", new Date(System.currentTimeMillis()), 1, 1, 1, "лул"));
 
         list.add(new DatabasePackage(3, "Хакатон на физтехе", "Самый луучший хакатон, на 24 часа",
-                "БФК 112", new Date(System.currentTimeMillis()), 1, 1, 1, "лул"));
+                "БФК 112", new Date(System.currentTimeMillis()), 1, 1, 1, "лул"));*/
 
         return list;
+    }
+
+    private void initTags() {
+        tags = new ArrayList<Integer>();
     }
 }

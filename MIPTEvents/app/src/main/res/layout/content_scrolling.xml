@@ -29,7 +29,8 @@
             android:id="@+id/date"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             android:textStyle="normal|italic"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:paddingLeft="10dp"/>
 
         <TextView
             android:text="TAGS"
@@ -37,7 +38,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/tags"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:paddingLeft="10dp"/>
 
         <TextView
             android:text="PLACE"
@@ -46,7 +48,8 @@
             android:id="@+id/place"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             android:textStyle="normal|italic"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:paddingLeft="10dp"/>
 
         <TextView
             android:text="TEXT"
@@ -54,7 +57,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/main_text"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:paddingLeft="10dp"/>
 
     </LinearLayout>
 
