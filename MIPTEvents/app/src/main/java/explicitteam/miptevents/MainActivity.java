@@ -3,6 +3,7 @@ package explicitteam.miptevents;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -26,7 +27,9 @@ import explicitteam.miptevents.Database.DatabasePackage;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    List<Integer> tags;
+    boolean isInFavmMde = false;
+    ArrayList<String> tags;
+    List<DatabasePackage> initListTest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +46,10 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        initTags();
         ListView listView = (ListView) findViewById(R.id.list_view);
-        EventAdapter adapter = new EventAdapter(this, initListTest());
+        EventAdapter adapter = new EventAdapter(this, );
         listView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -67,6 +72,23 @@ public class MainActivity extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    protected void onStart() {
+        Intent intent = getIntent();
+        if (intent != null) {
+            ArrayList<String> temp = intent.getStringArrayListExtra("tags");
+            if (temp != null) {
+                tags = temp;
+            }
+            Boolean favs;
+            favs = intent.getBooleanExtra("favs", false);
+            if (favs != null) {
+
+            }
+        }
+        super.onStart();
     }
 
     @Override
@@ -100,14 +122,19 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_profile) {
-            // Handle the camera action
+            Intent intent = new Intent(this, ProfileActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_favs) {
-
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.putExtra("favs", true);
+            startActivity(intent);
         } else if (id == R.id.nav_manage) {
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_filters) {
-
+            Intent intent = new Intent(this, FiltersActivity.class);
+            intent.putExtra("tags", tags);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -118,8 +145,11 @@ public class MainActivity extends AppCompatActivity
     private List<DatabasePackage> initListTest() {
         List<DatabasePackage> list = new ArrayList<>();
 
-        CDatabase dbase = new CDatabase( );
-        /*list.add(new DatabasePackage(1, "Хакатон на физтехе", "Самый луучший хакатон, на 24 часа." +
+        try (CDatabase dbase = new CDatabase("VasyaPukin")) {
+            return dbase.getList();
+        }
+
+            /*list.add(new DatabasePackage(1, "Хакатон на физтехе", "Самый луучший хакатон, на 24 часа." +
                 " далее следует длиииииииииииииииииииииииииииииииииииииииииииииииииииииии" +
                 "ииииииииииииииииииииииииииииииииииииииииииииииииииинное описание",
                 "БФК 112", new Date(System.currentTimeMillis()), 1, 1, 1, "лул"));
@@ -134,6 +164,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void initTags() {
-        tags = new ArrayList<Integer>();
+        tags = new ArrayList<>();
     }
 }

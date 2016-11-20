@@ -198,7 +198,7 @@ public class CDatabase {
         return true;
     }
 
-    public  void close() {
+    public void close() {
         session.disconnect();
         try {
             connection.close();
