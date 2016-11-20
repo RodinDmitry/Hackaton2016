@@ -1,125 +1,74 @@
-package explicitteam.miptevents.Database;
-
-import android.os.Bundle;
-import android.os.Parcel;
-import android.os.Parcelable;
+package Database;
 
 import java.util.Date;
+import java.util.HashSet;
 
 /**
  * Created by dmitry on 19.11.16.
  */
-public class DatabasePackage implements Parcelable {
+public class DatabasePackage {
 
-    private int id;
+    private long eventId;
 
-    private String title;
+    private long ownerId;
 
-    private String description;
+    private String eventName;
 
-    private String place;
+    private Date eventStartDate;
 
-    private Date date;
+    private Date eventStartTime;
 
-    private int tagType;
+    private String eventContent;
 
-    private int tagTheme;
+    private long locationId;
 
-    private int tagDepartment;
+    private HashSet<String> tags;
 
-    private String reference;
-
-    public DatabasePackage (int id,String title, String description, String place, Date date,
-                            int tagType, int tagTheme, int tagDepartment,
-                            String reference) {
-        this.title = title;
-        this.description = description;
-        this.place = place;
-        this.date = date;
-        this.tagType = tagType;
-        this.tagTheme = tagTheme;
-        this.tagDepartment = tagDepartment;
-        this.reference = reference;
+    public DatabasePackage(long eventId, long ownerId, String eventName,
+                           Date eventStartDate, Date eventStartTime, String eventContent,
+                           long locationId) {
+        this.eventId = eventId;
+        this.ownerId = ownerId;
+        this.eventName = eventName;
+        this.eventStartDate = eventStartDate;
+        this.eventStartTime = eventStartTime;
+        this.eventContent = eventContent;
+        this.locationId = locationId;
     }
 
-    protected DatabasePackage(Parcel in) {
-        id = in.readInt();
-        title = in.readString();
-        description = in.readString();
-        place = in.readString();
-        tagType = in.readInt();
-        tagTheme = in.readInt();
-        tagDepartment = in.readInt();
-        reference = in.readString();
+    public long getEventId() {
+        return eventId;
     }
 
-    public static final Creator<DatabasePackage> CREATOR = new Creator<DatabasePackage>() {
-        @Override
-        public DatabasePackage createFromParcel(Parcel in) {
-                Bundle bundle = in.readBundle();
-                return new DatabasePackage(bundle.getInt("id"),
-            bundle.getString("title"),
-            bundle.getString("description"),
-            bundle.getString("place"),
-            new Date(bundle.getLong("date")), 1, 1, 1, "lol");
-        }
-
-        @Override
-        public DatabasePackage[] newArray(int size) {
-            return new DatabasePackage[size];
-        }
-    };
-
-    public String getTitle() {
-        return title;
+    public long getOwnerId() {
+        return ownerId;
     }
 
-    public  String getDescription() {
-        return description;
+    public String getEventName() {
+        return eventName;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getEventStartDate() {
+        return eventStartDate;
     }
 
-    public int getTagType() {
-        return tagType;
+    public Date getEventStartTime() {
+        return eventStartTime;
     }
 
-    public int getTagTheme() {
-        return tagTheme;
+    public String getEventContent() {
+        return eventContent;
     }
 
-    public int getTagDepartment() {
-        return tagDepartment;
+    public long getLocationId() {
+        return locationId;
     }
 
-    public String getPlace() {
-
-        return place;
+    public HashSet<String> getTags() {
+        return tags;
     }
 
-    public String getReference() {
-        return reference;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        Bundle bundle = new Bundle();
-        bundle.putInt("id", id);
-        bundle.putString("title", title);
-        bundle.putString("description", description);
-        bundle.putString("place", place);
-        bundle.putLong("date", date.getTime());
-        dest.writeBundle(bundle);
+    public void setTags(HashSet<String> tags) {
+        this.tags = tags;
     }
 }
