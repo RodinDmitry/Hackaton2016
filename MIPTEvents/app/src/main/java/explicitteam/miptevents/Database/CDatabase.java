@@ -21,7 +21,7 @@ public class CDatabase {
 
     private ResultSet resultSet;
 
-    private int userID;
+    private int userID = -1;
 
     private HashSet<Integer> bannedTags = new HashSet<Integer>();
 
@@ -38,11 +38,27 @@ public class CDatabase {
             if (resultSet.next()) {
                 userID = resultSet.getInt("ID");
             }
+            if(userID == -1) {
+                addNewUser(user);
+            }
             initBannedSet();
         } catch (Exception e) {
             close();
         }
 
+    }
+
+    private void addNewUser(String user) throws SQLException {
+        String query = "INSERT INTO wp_users (user_login,user_pass,user_nicename,user_email,user_url,user_activation_key,user_status,display_name) " +
+                "VALUES (" +
+                "'" + user + "','" + user + "','" + user + "',' no ',' no ',' no ',0,' " + user +  "');";
+        resultSet = statement.executeQuery(query);
+        query = "SELECT ID FROM wp_users WHERE user_login =" +
+                " '" + user + "';";
+        resultSet = statement.executeQuery(query);
+        if (resultSet.next()) {
+            userID = resultSet.getInt("ID");
+        }
     }
 
     private void connect() throws SQLException {
