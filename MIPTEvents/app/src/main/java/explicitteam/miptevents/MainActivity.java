@@ -1,9 +1,8 @@
 package explicitteam.miptevents;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -18,8 +17,9 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+import java.util.Objects;
+import java.util.concurrent.ExecutionException;
 
 import explicitteam.miptevents.Database.CDatabase;
 import explicitteam.miptevents.Database.DatabasePackage;
@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity
 
     boolean isInFavmMde = false;
     ArrayList<String> tags;
-    List<DatabasePackage> initListTest;
+    List<DatabasePackage> itemList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +37,12 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        AsyncTask<Object, Object, List<DatabasePackage>> task = new AsyncTask<Object, Object, List<DatabasePackage>>(){
+            @Override
+            protected List<DatabasePackage> doInBackground(Object... params) {
+                return initListTest();
+            }
+        }.execute(1);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -49,7 +55,14 @@ public class MainActivity extends AppCompatActivity
 
         initTags();
         ListView listView = (ListView) findViewById(R.id.list_view);
-        EventAdapter adapter = new EventAdapter(this, );
+        try {
+            itemList = task.get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        EventAdapter adapter = new EventAdapter(this, itemList);
         listView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -85,7 +98,9 @@ public class MainActivity extends AppCompatActivity
             Boolean favs;
             favs = intent.getBooleanExtra("favs", false);
             if (favs != null) {
+                if (favs) {
 
+                }
             }
         }
         super.onStart();
@@ -143,11 +158,20 @@ public class MainActivity extends AppCompatActivity
     }
 
     private List<DatabasePackage> initListTest() {
-        List<DatabasePackage> list = new ArrayList<>();
+        List<DatabasePackage> list ;
 
         try (CDatabase dbase = new CDatabase("VasyaPukin")) {
-            return dbase.getList();
+            if (dbase != null) {
+
+                list = dbase.getList();
+                if (list != null) {
+                    return list;
+                } else {
+                    return new ArrayList<>();
+                }
+            }
         }
+        return new ArrayList<>();
 
             /*list.add(new DatabasePackage(1, "Хакатон на физтехе", "Самый луучший хакатон, на 24 часа." +
                 " далее следует длиииииииииииииииииииииииииииииииииииииииииииииииииииииии" +
@@ -160,7 +184,6 @@ public class MainActivity extends AppCompatActivity
         list.add(new DatabasePackage(3, "Хакатон на физтехе", "Самый луучший хакатон, на 24 часа",
                 "БФК 112", new Date(System.currentTimeMillis()), 1, 1, 1, "лул"));*/
 
-        return list;
     }
 
     private void initTags() {

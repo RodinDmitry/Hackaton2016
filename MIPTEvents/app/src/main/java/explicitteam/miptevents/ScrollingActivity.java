@@ -26,11 +26,11 @@ public class ScrollingActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         View view = findViewById(R.id.scroll_act);
         item = getIntent().getParcelableExtra("item");
-        setTitle(item.getTitle());
+        setTitle(item.getEventContent());
         TextView textView = (TextView) findViewById(R.id.date);
-        textView.setText(writeDate(item.getDate()));
+        textView.setText(writeDate(item.getEventStartDate()));
         textView = (TextView) findViewById(R.id.main_text);
-        textView.setText(item.getDescription());
+        textView.setText(item.getEventContent());
         textView = (TextView) findViewById(R.id.tags);
         textView.setText(writeTags(item));
         Button butt = (Button) findViewById(R.id.subscribe);

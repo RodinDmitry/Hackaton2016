@@ -5,6 +5,7 @@ package explicitteam.miptevents.Database;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.Session;
 
+import java.io.Closeable;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -12,7 +13,7 @@ import java.util.HashSet;
 /**
  * Created by dmitry on 19.11.16.
  */
-public class CDatabase {
+public class CDatabase implements Closeable{
 
 
     private Connection connection;
@@ -63,7 +64,7 @@ public class CDatabase {
 
     private void connect() throws SQLException {
 
-        int lport=1116;
+        int lport=1126;
         String rhost="explicit.vdi.mipt.ru";
         String host="explicit.vdi.mipt.ru";
         int rport=3306;
@@ -78,7 +79,7 @@ public class CDatabase {
             java.util.Properties config = new java.util.Properties();
             config.put("StrictHostKeyChecking", "no");
             JSch jsch = new JSch();
-            session=jsch.getSession(user, host, 22);
+            session=jsch.getSession(user, "10.55.166.246", 22);
             session.setPassword(password);
             session.setConfig(config);
             session.connect();
@@ -87,6 +88,7 @@ public class CDatabase {
             connection = DriverManager.getConnection (url, dbuserName, dbpassword);
             statement = connection.createStatement();
         }catch(Exception e) {
+            System.out.println(e);
             session.disconnect();
             connection.close();
         }
@@ -118,9 +120,9 @@ public class CDatabase {
             String content = resultSet.getString("post_content");
 
             long locationId = resultSet.getLong("location_id");
-
+            System.out.println(eventName);
             return new DatabasePackage(id, ownerId, eventName, eventDate, eventTime, content, locationId);
-        }
+        };
         return null;
     }
 
