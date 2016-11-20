@@ -39,6 +39,7 @@ public class ScrollingActivity extends AppCompatActivity {
             protected String doInBackground(Long... params) {
                 CDatabase dbase = new CDatabase(getLoginString());
                 String res = dbase.getLocation(params[0]);
+                dbase.close();
                 System.out.println(res);
                 System.out.println("jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj");
                 return res;

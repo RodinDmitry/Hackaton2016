@@ -137,6 +137,8 @@ public class CDatabase implements Closeable{
         if(resultSet.next()) {
             long id = resultSet.getLong("event_id");
 
+            long postId = resultSet.getLong("post_id");
+
             long ownerId = resultSet.getLong("event_owner");
 
             String eventName = resultSet.getString("event_name");
@@ -149,7 +151,7 @@ public class CDatabase implements Closeable{
 
             long locationId = resultSet.getLong("location_id");
             System.out.println(eventName);
-            return new DatabasePackage(id, ownerId, eventName, eventDate, eventTime, content, locationId);
+            return new DatabasePackage(id,postId, ownerId, eventName, eventDate, eventTime, content, locationId);
         };
         return null;
     }
@@ -203,7 +205,7 @@ public class CDatabase implements Closeable{
             ArrayList<DatabasePackage> tempResult = getTempList();
             ArrayList<DatabasePackage> result = new ArrayList<DatabasePackage>();
             for (DatabasePackage item : tempResult) {
-                HashSet<String> set = getTagCloud(item.getEventId());
+                HashSet<String> set = getTagCloud(item.getPostId());
                 if (set != null) {
                     item.setTags(set);
                     result.add(item);
@@ -241,6 +243,20 @@ public class CDatabase implements Closeable{
         }
     }
 
+    public HashSet<String> getTags() {
+        String query = "SELECT name FROM wp_terms;";
+        try {
+            resultSet = statement.executeQuery(query);
+            HashSet<String> result = new HashSet<>();
+            while(resultSet.next()) {
+                String tagName = resultSet.getString("name");
+                result.add(tagName);
+            }
+            return result;
+        } catch (SQLException e) {
+            return null;
+        }
+    }
 
     private boolean checkBanned(int tagID) {
         if(bannedTags.contains(tagID)) {

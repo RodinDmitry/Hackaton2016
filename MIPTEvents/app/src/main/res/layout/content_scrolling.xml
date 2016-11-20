@@ -39,7 +39,8 @@
             android:id="@+id/tags"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textSize="18sp"
-            android:paddingLeft="10dp"/>
+            android:paddingLeft="10dp"
+            android:textColor="@color/colorPrimaryDark" />
 
         <TextView
             android:text="PLACE"

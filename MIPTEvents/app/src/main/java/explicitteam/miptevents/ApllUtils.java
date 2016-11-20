@@ -13,7 +13,7 @@ public class ApllUtils {
     public static String writeDate(Date date, Date time) {
         SimpleDateFormat format = new SimpleDateFormat("d MMM");
         String result = format.format(date);
-        format = new SimpleDateFormat("h mm");
+        format = new SimpleDateFormat("h:mm");
         result += ' ' + format.format(time);
         return result;
     }
@@ -21,7 +21,9 @@ public class ApllUtils {
     public static String writeTags(DatabasePackage item) {
         StringBuilder str = new StringBuilder();
         for (String tag: item.getTags()) {
-            str.append(tag).append(' ');
+            str.append('#');
+            str.append(tag);
+            str.append(' ');
         }
         return str.toString();
     }

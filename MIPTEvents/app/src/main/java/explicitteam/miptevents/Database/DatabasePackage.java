@@ -15,6 +15,8 @@ public class DatabasePackage implements Parcelable{
 
     private long eventId;
 
+    private long postId;
+
     private long ownerId;
 
     private String eventName;
@@ -29,10 +31,11 @@ public class DatabasePackage implements Parcelable{
 
     private HashSet<String> tags;
 
-    public DatabasePackage(long eventId, long ownerId, String eventName,
+    public DatabasePackage(long eventId,long postId, long ownerId, String eventName,
                            Date eventStartDate, Date eventStartTime, String eventContent,
                            long locationId) {
         this.eventId = eventId;
+        this.postId = postId;
         this.ownerId = ownerId;
         this.eventName = eventName;
         this.eventStartDate = eventStartDate;
@@ -50,6 +53,7 @@ public class DatabasePackage implements Parcelable{
         locationId = bund.getLong("locationId");
         eventStartDate = new Date(bund.getLong("dateStart"));
         eventStartTime = new Date(bund.getLong("timeStart"));
+        postId = bund.getLong("postId");
         tags = new HashSet<>(bund.getStringArrayList("tags"));
     }
 
@@ -116,7 +120,12 @@ public class DatabasePackage implements Parcelable{
         bund.putLong("locationId", locationId);
         bund.putLong("dateStart", eventStartDate.getTime());
         bund.putLong("timeStart", eventStartTime.getTime());
+        bund.putLong("postId", postId);
         bund.putStringArrayList("tags", new ArrayList<String>(tags));
         dest.writeBundle(bund);
+    }
+
+    public long getPostId() {
+        return postId;
     }
 }

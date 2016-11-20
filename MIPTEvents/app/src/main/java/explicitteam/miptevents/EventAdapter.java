@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -28,7 +29,11 @@ public class EventAdapter extends BaseAdapter {
     private final Context context;
 
     public EventAdapter(Context context, List<DatabasePackage> list) {
-        this.list = list;
+        if (list != null) {
+            this.list = list;
+        } else {
+            this.list =new ArrayList<>();
+        }
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.context = context;
     }
