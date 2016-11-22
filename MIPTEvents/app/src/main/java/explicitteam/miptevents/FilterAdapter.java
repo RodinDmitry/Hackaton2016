@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Anatoly on 20.11.2016.
@@ -50,7 +49,7 @@ public class FilterAdapter extends BaseAdapter {
         }
 
         TextView textView = (TextView) view.findViewById(R.id.tagtext);
-        textView.setText(list.get(position).first);
+        textView.setText('#' + list.get(position).first);
         CheckBox checkBox = (CheckBox) view.findViewById(R.id.checkBox);
         checkBox.setChecked(list.get(position).second);
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -58,6 +57,7 @@ public class FilterAdapter extends BaseAdapter {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Pair<String, Boolean> item = list.get(position);
                 list.add(position, new Pair(item.first, new Boolean(isChecked)));
+                System.out.println("changed");
             }
         });
         return view;
